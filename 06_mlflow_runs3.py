@@ -1,12 +1,12 @@
 import mlflow
 
-from mlflow_utils import create_mlflow_experiment 
+from mlflow_utils import create_mlflow_experiment
 
 if __name__ == "__main__":
 
     experiment_id = create_mlflow_experiment(
-        experiment_name="testing_mlflow4",
-        artifact_location="testing_mlflow1_artificats",
+        experiment_name="testing_mlflow7",
+        artifact_location="testing_mlflow7_artificats",
         tags={"env": "dev", "version": "1.0.0"},
     )
 
