@@ -1,0 +1,9 @@
+artifact_location: /Users/aakash/Developer/MLFlow/testing_mlflow1_artifacts
+creation_time: 1735867862519
+experiment_id: '795624509464015525'
+last_update_time: 1735874977193
+lifecycle_stage: deleted
+name: testing_mlflow1
+tags:
+  env: dev
+  version: 1.0.0
