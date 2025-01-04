@@ -3,3 +3,6 @@
 mlruns/
 __pycache__/
 .venv/
+
+# testing-artifacts
+testing_mlflow7_artificats/
