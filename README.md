@@ -14,7 +14,7 @@
 
 # Installation
 
-To install MLFlow Python Pacakage, run the following command
+To install MLFlow Python Package, run the following command
 
 ```
 pip install mlflow
