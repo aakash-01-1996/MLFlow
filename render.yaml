@@ -1,0 +1,16 @@
+# Render Blueprint
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: mlflow-server
+    runtime: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: MLFLOW_TRACKING_URI
+        value: sqlite:///mlflow.db
+    disk:
+      name: mlflow-data
+      mountPath: /app/mlruns
+      sizeGB: 1
