@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # MLFlow Tracking Server
+  mlflow-server:
+    build: .
+    container_name: mlflow-tracking-server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/app/mlruns
+      - ./mlartifacts:/app/mlartifacts
+    environment:
+      - MLFLOW_TRACKING_URI=http://0.0.0.0:5000
+    command: >
+      mlflow server 
+      --backend-store-uri sqlite:///mlflow.db 
+      --default-artifact-root /app/mlartifacts 
+      --host 0.0.0.0 
+      --port 5000
+
+  # Model Serving (Optional - for serving registered models)
+  mlflow-model-server:
+    build: .
+    container_name: mlflow-model-server
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./mlruns:/app/mlruns
+      - ./mlartifacts:/app/mlartifacts
+    depends_on:
+      - mlflow-server
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow-server:5000
+    # Uncomment and update with your model URI to serve a specific model
+    # command: >
+    #   mlflow models serve 
+    #   --model-uri "models:/CustomModel/1" 
+    #   --host 0.0.0.0 
+    #   --port 5001 
+    #   --no-conda
+    profiles:
+      - model-serving
