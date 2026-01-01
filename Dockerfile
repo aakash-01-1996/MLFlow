@@ -15,14 +15,16 @@ RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements-docker.txt \
     && rm -rf /root/.cache
 
-# Copy only necessary files (not the full project)
-COPY mlflow_utils.py .
+# Copy startup script
+COPY start.sh .
+RUN chmod +x start.sh
 
 # Create directories for data persistence
 RUN mkdir -p /app/mlruns /app/mlartifacts
 
-# Expose MLFlow UI port
+# Railway uses dynamic PORT
+ENV PORT=5000
 EXPOSE 5000
 
-# Default command: Start MLFlow tracking server
-CMD ["mlflow", "server", "--host", "0.0.0.0", "--port", "5000", "--backend-store-uri", "sqlite:///mlflow.db", "--default-artifact-root", "/app/mlartifacts"]
+# Use shell script to handle dynamic PORT
+CMD ["./start.sh"]
