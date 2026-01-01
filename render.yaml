@@ -6,7 +6,6 @@ services:
     name: mlflow-server
     runtime: docker
     plan: free
-    healthCheckPath: /health
     envVars:
       - key: MLFLOW_TRACKING_URI
         value: sqlite:///mlflow.db

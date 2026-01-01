@@ -24,9 +24,5 @@ RUN mkdir -p /app/mlruns /app/mlartifacts
 # Expose MLFlow UI port
 EXPOSE 5000
 
-# Health check endpoint
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:5000/health || exit 1
-
 # Default command: Start MLFlow tracking server
 CMD ["mlflow", "server", "--host", "0.0.0.0", "--port", "5000", "--backend-store-uri", "sqlite:///mlflow.db", "--default-artifact-root", "/app/mlartifacts"]
