@@ -1,21 +1,22 @@
-# MLFlow Tracking Server + Model Serving
+# MLFlow Tracking Server - Optimized for low memory
 FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    libpq-dev \
+# Install minimal system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
-# Copy requirements and install dependencies
+# Upgrade pip and install dependencies with memory optimization
 COPY requirements-docker.txt .
-RUN pip install --no-cache-dir -r requirements-docker.txt
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements-docker.txt \
+    && rm -rf /root/.cache
 
-# Copy project files
-COPY . .
+# Copy only necessary files (not the full project)
+COPY mlflow_utils.py .
 
 # Create directories for data persistence
 RUN mkdir -p /app/mlruns /app/mlartifacts
