@@ -1,3 +1,2 @@
-# Minimal MLFlow dependencies for low-memory deployment
+# Minimal MLFlow dependencies for deployment
 mlflow==2.3.1
-gunicorn>=21.0.0
