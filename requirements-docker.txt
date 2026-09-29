@@ -1,2 +1,6 @@
 # Minimal MLFlow dependencies for deployment
-mlflow==2.3.1
+# Pin SQLAlchemy alongside MLflow: unpinned resolution pulled a version
+# missing FallbackAsyncAdaptedQueuePool, crashing backend store init.
+# These versions match the verified-working local environment.
+mlflow==2.19.0
+sqlalchemy==2.0.36
